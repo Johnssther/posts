@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Layout from './components/Layout'
+import Posts from './views/Posts'
 import Login from './views/Login'
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -13,11 +13,11 @@ export default function RouterApp() {
     const { isAuthenticated } = useAuth0();
     return (
         <>
-        { isAuthenticated ? 
+        { isAuthenticated ?
             <Router>
                 <Switch>
                     <Route path="/">
-                        <Layout />
+                        <Posts />
                     </Route>
                 </Switch>
             </Router>

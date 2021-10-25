@@ -1,8 +1,8 @@
-const getPosts = async (page = 1, country = 'spain') => {
+const getPosts = async (page = 1, limit = 10) => {
     try {
         const API_KEY = '6171ab5ca5a267cf424fa283';
-        const url = `https://dummyapi.io/data/v1/post`
-       const response = await fetch(url, {
+        const url = `https://dummyapi.io/data/v1/post?page=${page}&limit=${limit}`
+        const response = await fetch(url, {
             method:'GET',
             headers: {
                 'Accept':'application/json',

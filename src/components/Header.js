@@ -1,4 +1,4 @@
-import Logout from '../views/Logout'
+import Logout from './Logout'
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
