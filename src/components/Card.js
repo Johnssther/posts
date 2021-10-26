@@ -12,7 +12,7 @@ const Card = ({id_post, image, likes, tags, owner, text, publishDate}) => {
                 <div className="card-header grid">
                     <div className="owner">
                         <div className="img">
-                            <img src={owner.picture}></img>
+                            <img src={owner.picture} alt={owner.lastName}></img>
                         </div>
                         <p className="name-owner">{owner.firstName} {owner.lastName}</p>
                         <p>{likes} Likes</p>
@@ -28,7 +28,7 @@ const Card = ({id_post, image, likes, tags, owner, text, publishDate}) => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <img src={image}></img>
+                    <img src={image} alt={owner.lastName}></img>
                     <p>{new Date(publishDate).toDateString()}</p>
                     <p>{text}</p>
                 </div>

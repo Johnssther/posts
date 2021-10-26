@@ -12,32 +12,32 @@ import Paginate from '../components/Paginate';
 
 const Posts = () => {
     const posts = useSelector((state) => state.posts);
+    const searchTags = useSelector((state) => state.searchTags.searchTags);
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
 
-    const getPostsData = async() => {
-        const response = await getPosts()
-        response != 'error' && dispatch(actions.posts.addPosts(response))
-        setLoading(false)
-    }
+    const reducer = (previousTag, currentTag) => previousTag && currentTag;
 
-    const page_previous = async(page, limit) => {
+    const haveTag = tags => searchTags.map(searchTag => tags.includes(searchTag)).reduce(reducer)
+
+    const getPostsData = async (page = 1, limit = 50) => {
         setLoading(true)
         const response = await getPosts(page, limit)
-        response != 'error' && dispatch(actions.posts.addPosts(response))
+        if(searchTags.length > 0) {
+            const filterResponse = response.data.filter(item => haveTag(item.tags))
+            response !== 'error' && dispatch(actions.posts.addPosts({...response, data: filterResponse}))
+        } else {
+            response !== 'error' && dispatch(actions.posts.addPosts(response))
+        }
         setLoading(false)
     }
-    const page_next = async(page, limit) => {
-        setLoading(true)
-        const response = await getPosts(page, limit)
-        response != 'error' && dispatch(actions.posts.addPosts(response))
-        setLoading(false)
-    }
+    const page_previous = async (page, limit) => getPostsData(page, limit)
+    const page_next = async (page, limit) => getPostsData(page, limit)
 
     useEffect(() => {
         getPostsData();
-    }, [])
+    }, [searchTags])
 
     return (
         <Layout>
@@ -45,7 +45,7 @@ const Posts = () => {
               <h3 className="display-3">POSTS</h3>
             </div>
             <div className="container">
-                <InputBrowser></InputBrowser>
+                <InputBrowser getPostsData={getPostsData}></InputBrowser>
                 <Paginate 
                     limit={posts.limit}
                     page={posts.page}
@@ -71,6 +71,7 @@ const Posts = () => {
                             )
                         })
                     }
+                    {posts.data.length === 0 && <p>Sin resultados</p>}
                 </div>
             </div>
         </Layout>

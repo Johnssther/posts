@@ -7,7 +7,7 @@ const Header = () => {
         <header>
             <nav className="nav">
                 <div className="container">
-                    <a href="#" className="active">Posts</a>
+                    <a className="active">Posts</a>
                     
                     <span>{isAuthenticated && user.name}</span>
                     <div><img src={isAuthenticated && user.picture} style={{borderRadius:50}}></img></div>

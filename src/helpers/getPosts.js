@@ -1,4 +1,4 @@
-const getPosts = async (page = 1, limit = 10) => {
+const getPosts = async (page, limit) => {
     try {
         const API_KEY = '6171ab5ca5a267cf424fa283';
         const url = `https://dummyapi.io/data/v1/post?page=${page}&limit=${limit}`

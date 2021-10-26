@@ -1,6 +1,6 @@
 
 import { createStore,applyMiddleware } from "redux";
-import { createLogger } from 'redux-logger';
+// import { createLogger } from 'redux-logger';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import thunk from 'redux-thunk';
@@ -13,10 +13,10 @@ const persistConfig = {
   blacklist: [],
 };
 
-const logger = createLogger();
+// const logger = createLogger();
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
+const store = createStore(persistedReducer, applyMiddleware(thunk));
 let persistor = persistStore(store);
 // persistor.purge();
 
